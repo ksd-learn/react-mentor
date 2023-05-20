@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/react-mentor/static/css/main.e82cf500.css",
+    "main.js": "/react-mentor/static/js/main.29a3099a.js",
+    "index.html": "/react-mentor/index.html",
+    "main.e82cf500.css.map": "/react-mentor/static/css/main.e82cf500.css.map",
+    "main.29a3099a.js.map": "/react-mentor/static/js/main.29a3099a.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e82cf500.css",
+    "static/js/main.29a3099a.js"
+  ]
+}
