@@ -1,37 +1,116 @@
-import { Component } from "react";
-import { UsersList } from './UersList';
-import { data } from '../data/data';
-import { AddUserForm } from './AddUserForm';
-import { nanoid } from "nanoid";
+import { useEffect, useState } from "react";
+import { Button } from './Button';
+import { MoviesList } from './MoviesList';
+import { fetchMovies } from '../service/moviesApi';
+import { Loader } from './Loader';
 
-export class App extends Component {
+export const App = () => {
 
-state = { users: data };
+  const [movies, setMovies] = useState([]);
+  const [isListShown, setIsListShown] = useState(false);
+  const [page, setPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
   
-  deleteUser = (id) => {
-    this.setState((prevstate) => {
-     return {users: prevstate.users.filter((user) => user.id!==id)}
-    })
+  const toggleVisual = () => {
+    setIsListShown((prevState) => !prevState)
+  };
+
+  const loadMore = () => {
+    setPage((prevState) => prevState + 1)
   }
 
-  addContact = (userData) => {
-    const newUser = { ...userData, id: nanoid() }
-    this.setState(
-      (prevstate) => {
-        return { users: [...prevstate.users, newUser] }
-      }
-    )
+  const deliteMovie = (id) => {
+    setMovies((prevstate) => prevstate.filter((item) => item.id !== id))
   }
   
-    render() {
+  useEffect(() => {
+    if (isListShown) {
+      
+      setIsLoading(true);
+      fetchMovies(page)
+        .then(({data:{results}}) => {
+        setMovies((prevstate) => [...prevstate, ...results])
+        })
+        .catch((error) => console.log(error))
+        .finally(setIsLoading(false))
+    };
 
-      const { users } = this.state;
+    if (isListShown === false) {
+      setPage(1);
+      setMovies([])
+    }
+  }, [isListShown, page])
+
+
       return (
         <>
-          <UsersList users={users} deleteUser={this.deleteUser} />
-          <AddUserForm addContact={this.addContact} />
+          <Button text={isListShown? 'hide movies list ': 'shown movies list' } clickHandler={toggleVisual} />
+          
+          {isListShown &&
+            <>
+            <MoviesList movies={movies} deliteMovie={deliteMovie} />
+            
+            {!isLoading &&
+              <Button text='Load more' clickHandler={loadMore} />
+            }
+              
+            {isLoading &&
+              <Loader />
+            }
+
+            </>
+          }
         </>
       );
-    }
+
   }
   
+//export class App extends Component {//
+
+//  state = {
+//    movies: [],
+//    isListShown: false,
+//    page: 1,
+//    isLoading: false
+//  };
+//  
+//  toggleVisual = () => {
+//    this.setState((prevState) => {
+//      return { isListShown: !prevState.isListShown }
+//    })
+//  };//
+
+//  componentDidUpdate(prevProps, prevState) {
+//    const { isListShown, page } = this.state;
+//    if (prevState.isListShown !== isListShown && isListShown) {
+//      this.setState({isLoading: true})
+//      fetchMovies(page)
+//        .then(({data:{results}}) => {
+//        this.setState((prevstate) => {return {movies: [...prevstate.movies, ...results]}})
+//        })
+//        .catch((error) => console.log(error))
+//        .finally(()=> {return this.setState({isLoading: false})})
+//    }//
+
+//    if (prevState.isListShown !== isListShown && isListShown === false) {
+//      this.setState({ page: 1, movies: []});
+//    }
+//  }//
+//
+
+//  
+//    render() {//
+
+//      const {movies, isListShown} = this.state//
+
+//      return (
+//        <>
+//          <Button text={isListShown? 'hide movies list ': 'shown movies list' } clickHandler={this.toggleVisual} />
+//          
+//          {isListShown &&
+//            <MoviesList movies={movies} />
+//          }
+//        </>
+//      );
+//    }
+//  }
