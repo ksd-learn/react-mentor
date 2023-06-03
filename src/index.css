@@ -29,3 +29,15 @@ ol {
   padding: 0;
   list-style: none;
 }
+
+
+nav {
+  border-bottom: 1px solid black;
+}
+nav ul {
+  display: flex;
+}
+nav li {
+  margin: 10px 20px;
+}
+
