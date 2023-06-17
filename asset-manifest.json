@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/react-mentor/static/css/main.28c11540.css",
-    "main.js": "/react-mentor/static/js/main.a88dd99f.js",
-    "index.html": "/react-mentor/index.html",
-    "main.28c11540.css.map": "/react-mentor/static/css/main.28c11540.css.map",
-    "main.a88dd99f.js.map": "/react-mentor/static/js/main.a88dd99f.js.map"
+    "main.css": "/static/css/main.28c11540.css",
+    "main.js": "/static/js/main.e637fb6a.js",
+    "index.html": "/index.html",
+    "main.28c11540.css.map": "/static/css/main.28c11540.css.map",
+    "main.e637fb6a.js.map": "/static/js/main.e637fb6a.js.map"
   },
   "entrypoints": [
     "static/css/main.28c11540.css",
-    "static/js/main.a88dd99f.js"
+    "static/js/main.e637fb6a.js"
   ]
 }
