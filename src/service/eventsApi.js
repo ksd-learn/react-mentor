@@ -10,10 +10,11 @@ export async function fetchEvents() {
   const response = await axios('events', {
     params: {
       apikey: KEY,
-      size: 20,
+      size: 10,
 
     }
   })
+  console.log('ghgj')
   return response.data._embedded.events
 }
                                 // берем из коллекции массив events (page=0) с бъектами, у которых
